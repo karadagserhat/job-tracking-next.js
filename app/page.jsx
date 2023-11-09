@@ -1,6 +1,5 @@
 import TopicsList from '@/components/TopicsList';
 
 export default function Home() {
-  // return <TopicsList />;
-  return <div>Hey</div>;
+  return <TopicsList />;
 }
