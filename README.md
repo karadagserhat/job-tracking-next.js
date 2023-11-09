@@ -4,4 +4,4 @@ https://job-tracking-next-js.netlify.app
 • Managed database with Mongoose  
 • Implemented all CRUD operation  
 
-• Used tools : Tailwind CSS, Next.js, Mongoose
+• Used tools : Tailwind CSS, Next.js, React.js, Mongoose
