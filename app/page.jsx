@@ -1,5 +1,10 @@
-import TopicsList from '@/components/TopicsList';
+import TicketCard from '@/components/TicketCard';
 
-export default function Home() {
-  return <TopicsList />;
-}
+const Dashboard = () => {
+  return (
+    <div>
+      <TicketCard />
+    </div>
+  );
+};
+export default Dashboard;
