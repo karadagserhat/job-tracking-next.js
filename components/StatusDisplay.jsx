@@ -1,17 +1,16 @@
 const StatusDisplay = ({ status }) => {
-  /*
   const getColor = (status) => {
     let color;
-    switch (status.toLowerCase()) {
-      case 'done':
+    switch (status?.toLowerCase()) {
+      case 'interview':
         color = 'bg-green-200';
         return color;
 
-      case 'started':
+      case 'pending':
         color = 'bg-yellow-200';
         return color;
 
-      case 'not started':
+      case 'declined':
         color = 'bg-red-200';
         return color;
       default:
@@ -19,19 +18,14 @@ const StatusDisplay = ({ status }) => {
     }
     return color;
   };
-  */
+
   return (
-    // <span
-    //   className={`inline-block  rounded-full px-2 py-1 text-xs font-semibold text-gray-700 ${getColor(
-    //     status
-    //   )}`}
-    // >
-    //   {status}
-    // </span>
     <span
-      className={`inline-block  rounded-full px-2 py-1 text-xs font-semibold text-gray-700 bg-green-200`}
+      className={`inline-block  rounded-full px-2 py-1 text-xs font-semibold text-gray-700 ${getColor(
+        status
+      )}`}
     >
-      done
+      {status}
     </span>
   );
 };

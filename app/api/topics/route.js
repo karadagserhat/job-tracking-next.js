@@ -3,18 +3,28 @@ import Topic from '@/models/topic';
 import { NextResponse } from 'next/server';
 
 export async function POST(request) {
-  // const { title, description } = await request.json();
-  const body = await request.json();
-  const topicData = body.formData;
-  await connectMongoDB();
-  await Topic.create(topicData);
-  return NextResponse.json({ message: 'Topic Created' }, { status: 201 });
+  try {
+    // const { title, description } = await request.json();
+    const body = await request.json();
+    const topicData = body.formData;
+    await connectMongoDB();
+    await Topic.create(topicData);
+    return NextResponse.json({ message: 'Topic Created' }, { status: 201 });
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({ message: 'Error', err }, { status: 500 });
+  }
 }
 
 export async function GET() {
-  await connectMongoDB();
-  const topics = await Topic.find();
-  return NextResponse.json({ topics });
+  try {
+    await connectMongoDB();
+    const topics = await Topic.find();
+    return NextResponse.json({ topics }, { status: 200 });
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({ message: 'Error', err }, { status: 500 });
+  }
 }
 
 export async function DELETE(request) {
