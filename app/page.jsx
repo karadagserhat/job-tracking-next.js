@@ -21,6 +21,10 @@ const getTopics = async () => {
 const Dashboard = async () => {
   const { topics } = await getTopics();
 
+  if (topics.length === 0) {
+    return <p className="m-4 text-lg">No jobs.</p>;
+  }
+
   const uniqueCategories = [
     ...new Set(topics?.map(({ category }) => category)),
   ];
