@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import DeleteBlock from './DeleteBlock';
+import EditBlock from './EditBlock';
 import PriorityDisplay from './PriorityDisplay';
 import StatusDisplay from './StatusDisplay';
 
@@ -24,22 +26,29 @@ const TicketCard = ({ topic }) => {
       <div className="flex mb-3">
         <PriorityDisplay priority={topic.priority} />
         <div className="ml-auto">
-          <DeleteBlock id={topic._id} />
+          <div className="flex justify-between gap-3 items-center -mt-1">
+            <EditBlock id={topic._id} />
+            <DeleteBlock id={topic._id} />
+          </div>
         </div>
       </div>
-      <h4>{topic.company}</h4>
-      <hr className="h-px border-0 bg-page mb-2" />
-      <p className="whitespace-pre-wrap">{topic.description} </p>
+      <Link href={`/TicketPage/${topic._id}`} style={{ display: 'contents' }}>
+        <h4>{topic.company}</h4>
+        <hr className="h-px border-0 bg-page mb-2" />
+        <p className="whitespace-pre-wrap">{topic.description} </p>
 
-      <div className="flex-grow"></div>
-      <div className="flex mt-2">
-        <div className="flex ">
-          <p className="text-xs mt-auto">{formatTimestamp(topic.createdAt)} </p>
+        <div className="flex-grow"></div>
+        <div className="flex mt-2">
+          <div className="flex ">
+            <p className="text-xs mt-auto">
+              {formatTimestamp(topic.createdAt)}{' '}
+            </p>
+          </div>
+          <div className="ml-auto  flex items-end">
+            <StatusDisplay status={topic.status} />
+          </div>
         </div>
-        <div className="ml-auto  flex items-end">
-          <StatusDisplay status={topic.status} />
-        </div>
-      </div>
+      </Link>
     </div>
   );
 };

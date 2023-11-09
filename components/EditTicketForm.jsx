@@ -2,7 +2,8 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-const EditTicketForm = () => {
+const EditTicketForm = ({ topic }) => {
+  const EDITMODE = topic._id === 'new' ? false : true;
   const router = useRouter();
   const startingTicketData = {
     company: '',
@@ -11,6 +12,14 @@ const EditTicketForm = () => {
     status: 'pending',
     category: 'Frontend Developer',
   };
+
+  if (EDITMODE) {
+    startingTicketData['company'] = topic.company;
+    startingTicketData['description'] = topic.description;
+    startingTicketData['priority'] = topic.priority;
+    startingTicketData['status'] = topic.status;
+    startingTicketData['category'] = topic.category;
+  }
 
   const [formData, setFormData] = useState(startingTicketData);
 
@@ -27,10 +36,8 @@ const EditTicketForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    /*
-
     if (EDITMODE) {
-      const res = await fetch(`/api/Tickets/${ticket._id}`, {
+      const res = await fetch(`/api/topics/${topic._id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
@@ -38,29 +45,18 @@ const EditTicketForm = () => {
         body: JSON.stringify({ formData }),
       });
       if (!res.ok) {
-        throw new Error('Failed to update ticket');
+        throw new Error('Failed to update topic');
       }
     } else {
-      const res = await fetch('/api/Tickets', {
+      const res = await fetch('/api/topics', {
         method: 'POST',
         body: JSON.stringify({ formData }),
         //@ts-ignore
         'Content-Type': 'application/json',
       });
       if (!res.ok) {
-        throw new Error('Failed to create ticket');
+        throw new Error('Failed to create topic');
       }
-    }
-*/
-
-    const res = await fetch('/api/topics', {
-      method: 'POST',
-      body: JSON.stringify({ formData }),
-      //@ts-ignore
-      'Content-Type': 'application/json',
-    });
-    if (!res.ok) {
-      throw new Error('Failed to create job');
     }
 
     router.refresh();
@@ -80,7 +76,7 @@ const EditTicketForm = () => {
         method="post"
         className="flex flex-col gap-3 w-1/2"
       >
-        <h3>Create Job</h3>
+        <h3>{EDITMODE ? 'Update Job' : 'Create Job'}</h3>
         <label>Company</label>
         <input
           id="company"
@@ -170,8 +166,7 @@ const EditTicketForm = () => {
         <input
           type="submit"
           className="btn max-w-xs"
-          // value={EDITMODE ? 'Update Ticket' : 'Create Ticket'}
-          value="Create Job"
+          value={EDITMODE ? 'Update Job' : 'Create Job'}
         />
       </form>
     </div>
